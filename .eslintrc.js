@@ -7,14 +7,14 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
     'airbnb',
-    'prettier',
+    'airbnb-typescript',
     'eslint:recommended',
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
   ],
-  plugins: ['react', 'prettier', '@typescript-eslint'],
+  plugins: ['react', 'import', '@typescript-eslint'],
   parserOptions: {
+    project: './tsconfig.json',
     ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
@@ -23,6 +23,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error', { singleQuote: true }],
+    'react/react-in-jsx-scope': 0,
   },
   settings: {
     'import/parsers': {
