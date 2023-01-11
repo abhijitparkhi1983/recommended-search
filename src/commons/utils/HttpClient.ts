@@ -11,6 +11,7 @@ export default class HttpClient implements IHttpClient {
   }
 
   get(endPoint: string, options?: any) {
+    console.log('HttpClient - calling api', `endPoint : ${endPoint}`);
     return this.#client.get(endPoint, {
       ...options,
     });

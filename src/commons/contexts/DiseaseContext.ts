@@ -1,26 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import constate from 'constate';
 import { IDiseaseService } from 'commons/types/module.types';
 import { SickResponse } from 'commons/types/response.types';
+import { useUpdateToastMessage } from './AlertContext';
 
 type UseDiseaseProps = {
   diseaseService: IDiseaseService;
 };
 
-const useDisease = ({ diseaseService }: UseDiseaseProps) => {
+const useDiseasesTemp = ({ diseaseService }: UseDiseaseProps) => {
   const [diseases, setDiseases] = useState<SickResponse[]>();
-
-  useEffect(() => {
-    console.log(diseases);
-  }, [diseases]);
+  const setToastMessage = useUpdateToastMessage();
 
   const searchDisease = async (query: string) => {
-    // TODO : 로딩 중, 예외처리 하기
+    if (!query) return;
+
     try {
       const diseasesResult = await diseaseService.search(query);
       setDiseases(diseasesResult);
     } catch (e) {
-      console.log('useDisease -error', e);
+      console.log('useDisease - error', e);
+      setToastMessage({
+        type: 'error',
+        content: (e as Error).message,
+      });
     }
   };
 
@@ -31,7 +34,7 @@ const useDisease = ({ diseaseService }: UseDiseaseProps) => {
 };
 
 export const [DiseaseProvider, useDiseases, useSearchDisease] = constate(
-  useDisease,
+  useDiseasesTemp,
   value => value.diseases,
   value => value.searchDisease,
 );
