@@ -2,7 +2,7 @@ import SearchInput from 'components/SearchInput';
 import styled from 'styled-components';
 import { message } from 'antd';
 import { useToastMessage } from 'commons/contexts/AlertContext';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDiseases, useSearchDisease } from 'commons/contexts/DiseaseContext';
 import { SickResponse } from 'commons/types/response.types';
 
@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     if (!toastMessage) return;
     messageApi.open({ ...toastMessage });
-  }, [toastMessage]);
+  }, [toastMessage, messageApi]);
 
   return (
     <>
@@ -38,7 +38,7 @@ function App() {
             })) || []
           }
           onSearch={searchDisease}
-          placeholder='질병명을 검색해주세요.'
+          placeholder="질병명을 검색해주세요."
         />
       </Wrapper>
     </>
