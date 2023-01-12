@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 import * as S from './SearchInput.styles';
 import { OptionType, SearchInputPropsType } from './SearchInput.types';
 
-// eslint-disable-next-line prettier/prettier
+
 export default function SearchInput({ options, placeholder, onSearch }: SearchInputPropsType) {
   const [query, setQuery] = useState('');
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -15,15 +15,12 @@ export default function SearchInput({ options, placeholder, onSearch }: SearchIn
   const itemRefs = useRef<HTMLLIElement[] | null[]>();
   const itemContainerRef = useRef<HTMLUListElement>(null);
 
-  const handleChangeInput = debounce<ChangeEvent<HTMLInputElement>>(
-    (arg: ChangeEvent<HTMLInputElement>) => {
-      const { value: queryString } = arg.target;
+  const handleChangeInput = debounce<ChangeEvent<HTMLInputElement>>((arg: ChangeEvent<HTMLInputElement>) => {
+    const { value: queryString } = arg.target;
 
-      setQuery(queryString);
-      onSearch(queryString);
-    },
-    300,
-  );
+    setQuery(queryString);
+    onSearch(queryString);
+  }, 300);
 
   const handleContainerFocus = () => {
     const ref = itemContainerRef.current || null;
@@ -48,6 +45,10 @@ export default function SearchInput({ options, placeholder, onSearch }: SearchIn
     ref.value = value;
   };
 
+  const handleClickItem = (index: number) => () => {
+    setFocusedIndex(index);
+  };
+
   const arrowKeyEventController = useCallback(
     (e: KeyboardEvent) => {
       const hasOptions = options.length > 0;
@@ -56,10 +57,10 @@ export default function SearchInput({ options, placeholder, onSearch }: SearchIn
 
       if (e.key === 'ArrowDown') {
         handleContainerFocus();
-        setFocusedIndex(prev => (prev + 1 < options.length ? prev + 1 : prev));
+        setFocusedIndex((prev) => (prev + 1 < options.length ? prev + 1 : prev));
       }
       if (e.key === 'ArrowUp') {
-        setFocusedIndex(prev => (prev - 1 >= 0 ? prev - 1 : prev));
+        setFocusedIndex((prev) => (prev - 1 >= 0 ? prev - 1 : prev));
       }
       if (e.key === 'Escape') {
         handleContainerBlur();
@@ -76,7 +77,7 @@ export default function SearchInput({ options, placeholder, onSearch }: SearchIn
         inputRef.current?.focus();
       }
     },
-    [options, focusedIndex],
+    [options, focusedIndex]
   );
 
   useEffect(() => {
@@ -102,38 +103,31 @@ export default function SearchInput({ options, placeholder, onSearch }: SearchIn
     <S.Wrapper>
       <S.InputWrapper>
         <SearchOutlined />
-        <input
-          type='text'
-          ref={inputRef}
-          onChange={handleChangeInput}
-          placeholder={placeholder}
-        />
+        <input type="text" ref={inputRef} onChange={handleChangeInput} placeholder={placeholder} />
 
-        <button type='button'>검색</button>
+        <button type="button">검색</button>
       </S.InputWrapper>
 
       <S.ListWrapper ref={itemContainerRef}>
         {((options.length || 0) <= 0 || !query) && <Empty />}
+
         {query &&
           options.map(({ label: optionLabel }: OptionType, index) => (
             <S.ItemWrapper
               key={uuid()}
               selected={index === focusedIndex}
-              ref={el => {
+              onClick={handleClickItem(index)}
+              ref={(el) => {
                 if (itemRefs?.current?.[index] !== null) return;
                 itemRefs.current[index] = el;
-              }}
-            >
+              }}>
               <SearchOutlined />
 
               {optionLabel
                 .replaceAll(query, `#$%${query}#$%`)
                 .split('#$%')
                 .map((e: string) => (
-                  <span
-                    key={uuid()}
-                    style={{ fontWeight: e === query ? '700' : '300' }}
-                  >
+                  <span key={uuid()} style={{ fontWeight: e === query ? '700' : '300' }}>
                     {e}
                   </span>
                 ))}
