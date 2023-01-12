@@ -52,7 +52,7 @@ export const InputWrapper = styled.div`
   }
 `;
 
-export const ListWrapper = styled.div`
+export const ListWrapper = styled.ul`
   width: 100%;
   padding: 12px;
   display: flex;
@@ -67,7 +67,7 @@ export const ListWrapper = styled.div`
   box-shadow: 0px 2px 4px rgb(30 32 37 / 10%);
 `;
 
-export const ItemWrapper = styled.a`
+export const ItemWrapper = styled.li`
   display: block;
   padding: 8px;
   margin: 3px;

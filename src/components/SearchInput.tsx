@@ -1,24 +1,25 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Empty } from 'antd';
-import { useDiseases, useSearchDisease } from 'commons/contexts/DiseaseContext';
-import { SickResponse } from 'commons/types/response.types';
 import debounce from 'commons/utils/debounce';
 import { ChangeEvent, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import * as S from './SearchInput.styles';
+import { OptionType, SearchInputPropsType } from './SearchInput.types';
 
-export default function SearchInput() {
+export default function SearchInput({
+  options,
+  placeholder,
+  onSearch,
+  onChange,
+}: SearchInputPropsType) {
   const [query, setQuery] = useState('');
-
-  const searchDisease = useSearchDisease();
-  const diseases = useDiseases();
 
   const handleChangeInput = debounce<ChangeEvent<HTMLInputElement>>(
     (arg: ChangeEvent<HTMLInputElement>) => {
-      const { value } = arg.target;
+      const { value: queryString } = arg.target;
 
-      setQuery(value);
-      searchDisease(value);
+      setQuery(queryString);
+      onSearch(queryString);
     },
     300,
   );
@@ -28,34 +29,39 @@ export default function SearchInput() {
       <S.InputWrapper>
         <SearchOutlined />
         <input
-          type='search'
+          type='text'
           onChange={handleChangeInput}
-          placeholder='질환명을 입력해주세요.'
+          placeholder={placeholder}
         />
 
         <button type='button'>검색</button>
       </S.InputWrapper>
 
-      <S.ListWrapper>
-        {((diseases?.length || 0) <= 0 || !query) && <Empty />}
+      <S.ListWrapper role='listbox' id='search-list'>
+        {((options?.length || 0) <= 0 || !query) && <Empty />}
 
         {query &&
-          diseases?.map(({ sickNm }: SickResponse) => (
-            <S.ItemWrapper href={`#${sickNm}`}>
-              <SearchOutlined style={{ marginRight: '12px' }} />
-              {sickNm
-                .replaceAll(query, `#$%${query}#$%`)
-                .split('#$%')
-                .map(e => (
-                  <span
-                    key={uuid()}
-                    style={{ fontWeight: e === query ? '700' : '300' }}
-                  >
-                    {e}
-                  </span>
-                ))}
-            </S.ItemWrapper>
-          ))}
+          options?.map(
+            ({ value: optionValue, label: optionLabel }: OptionType) => (
+              <S.ItemWrapper key={uuid()}>
+                <a href={optionValue}>
+                  <SearchOutlined style={{ marginRight: '12px' }} />
+
+                  {optionLabel
+                    .replaceAll(query, `#$%${query}#$%`)
+                    .split('#$%')
+                    .map((e: string) => (
+                      <span
+                        key={uuid()}
+                        style={{ fontWeight: e === query ? '700' : '300' }}
+                      >
+                        {e}
+                      </span>
+                    ))}
+                </a>
+              </S.ItemWrapper>
+            ),
+          )}
       </S.ListWrapper>
     </S.Wrapper>
   );
