@@ -54,26 +54,32 @@ export const InputWrapper = styled.div`
 
 export const ListWrapper = styled.ul`
   width: 100%;
-  padding: 12px;
+  padding: 16px;
   display: flex;
   margin-top: 8px;
-  overflow: scroll;
+  overflow-y: scroll;
   max-height: 400px;
   border-radius: 16px;
   flex-direction: column;
   background-color: white;
   align-items: center;
-  justify-content: center;
   box-shadow: 0px 2px 4px rgb(30 32 37 / 10%);
 `;
 
 export const ItemWrapper = styled.li`
-  display: block;
   padding: 8px;
   margin: 3px;
   width: 100%;
   border-radius: 8px;
+  cursor: pointer;
+  background-color: ${(props: { selected: boolean }) =>
+    props.selected ? '#f3f6fa' : 'white'};
+
   :hover {
     background-color: #f3f6fa;
+  }
+
+  svg {
+    margin-right: 12px;
   }
 `;

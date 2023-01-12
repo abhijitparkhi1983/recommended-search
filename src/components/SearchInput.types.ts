@@ -3,7 +3,6 @@ export type SearchInputPropsType = {
   options: OptionType[];
   placeholder?: string;
   onSearch: (query: string) => void;
-  onChange: (option: OptionType) => void;
 };
 
 export type OptionType = {

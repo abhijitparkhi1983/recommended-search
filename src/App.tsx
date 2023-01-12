@@ -2,7 +2,9 @@ import SearchInput from 'components/SearchInput';
 import styled from 'styled-components';
 import { message } from 'antd';
 import { useToastMessage } from 'commons/contexts/AlertContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useDiseases, useSearchDisease } from 'commons/contexts/DiseaseContext';
+import { SickResponse } from 'commons/types/response.types';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -16,6 +18,9 @@ function App() {
   const toastMessage = useToastMessage();
   const [messageApi, contextHolder] = message.useMessage();
 
+  const diseases = useDiseases();
+  const searchDisease = useSearchDisease();
+
   useEffect(() => {
     if (!toastMessage) return;
     messageApi.open({ ...toastMessage });
@@ -25,7 +30,16 @@ function App() {
     <>
       {contextHolder}
       <Wrapper>
-        <SearchInput />
+        <SearchInput
+          options={
+            diseases?.map(({ sickCd, sickNm }: SickResponse) => ({
+              value: sickCd,
+              label: sickNm,
+            })) || []
+          }
+          onSearch={searchDisease}
+          placeholder='질병명을 검색해주세요.'
+        />
       </Wrapper>
     </>
   );
