@@ -41,6 +41,13 @@ export default function SearchInput({ options, placeholder, onSearch }: SearchIn
     ref.blur();
   };
 
+  const setInputValue = (value: string) => {
+    const ref = inputRef.current || null;
+    if (ref === null) return;
+
+    ref.value = value;
+  };
+
   const arrowKeyEventController = useCallback(
     (e: KeyboardEvent) => {
       const hasOptions = options.length > 0;
@@ -63,7 +70,7 @@ export default function SearchInput({ options, placeholder, onSearch }: SearchIn
         const selected = options[focusedIndex];
 
         onSearch(selected.label);
-
+        setInputValue(selected.label);
         handleContainerBlur();
         setFocusedIndex(-1);
         inputRef.current?.focus();
