@@ -5,7 +5,13 @@ module.exports = {
     node: true,
   },
   parser: '@typescript-eslint/parser',
-  extends: ['airbnb', 'airbnb-typescript', 'eslint:recommended', 'plugin:prettier/recommended', 'plugin:@typescript-eslint/recommended'],
+  extends: [
+    'airbnb',
+    'airbnb-typescript',
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
   plugins: ['react', 'import', '@typescript-eslint'],
   parserOptions: {
     project: './tsconfig.json',
@@ -16,7 +22,7 @@ module.exports = {
     },
   },
   rules: {
-    'prettier/prettier': ['error', { singleQuote: true }],
+    'prettier/prettier': ['error', { singleQuote: true, endOfLine: 'auto' }],
     'react/react-in-jsx-scope': 0,
   },
   settings: {
