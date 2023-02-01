@@ -39,15 +39,14 @@
 -  CacheControl 클래스 내부에 Map 자료구조를 사용하여 쿼리 스트링을 key로 하고 검색 결과를 value로 설정하여 인메모리 캐싱 기능을 구현했습니다.  
 참고 : [react-query의 QueryCache](https://github.com/TanStack/query/blob/main/packages/query-core/src/queryCache.ts)
 
-https://github.com/hyejineee/pre-onboarding-8th-4/blob/63e90daa16ae8b062af3d94d1de034094ad0dbf3/src/commons/utils/CacheControl.ts#L3-L33
+https://github.com/hyejineee/recommended-search/blob/63e90daa16ae8b062af3d94d1de034094ad0dbf3/src/commons/utils/CacheControl.ts#L3-L33
 
 -  키보드 이동 시 스크롤 기능까지 지원할 수 있도록 구현하기 위해 window에 keyUp 이벤트 리스너를 추가하였습니다. 키보드 이벤트가 발생할 때 focus가 input에서 추천 검색어 리스트로 이동할 수 있도록 tabIndex를 사용했습니다.
 
-https://github.com/hyejineee/pre-onboarding-8th-4/blob/63e90daa16ae8b062af3d94d1de034094ad0dbf3/src/components/SearchInput.tsx#L31-L45
+https://github.com/hyejineee/recommended-search/blob/63e90daa16ae8b062af3d94d1de034094ad0dbf3/src/components/SearchInput.tsx#L31-L45
 
-https://github.com/hyejineee/pre-onboarding-8th-4/blob/63e90daa16ae8b062af3d94d1de034094ad0dbf3/src/components/SearchInput.tsx#L58-L87
+https://github.com/hyejineee/recommended-search/blob/63e90daa16ae8b062af3d94d1de034094ad0dbf3/src/components/SearchInput.tsx#L58-L87
 
-- 
 
 ![](./gif/search.gif)
 <br/>
@@ -69,13 +68,14 @@ https://github.com/hyejineee/pre-onboarding-8th-4/blob/63e90daa16ae8b062af3d94d1
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white" > <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white" > <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white" > <img src="https://img.shields.io/badge/Recoil-CA4245?style=for-the-badge&logo=Recoil&logoColor=white" > 
 
 ## 실행방법 <a id="5"></a>
+**프론트 서버를 실행하기 전에 API 서버가 실행되어야 합니다. 👉[API 서버 레포](https://github.com/walking-sunset/assignment-api_8th)**
 1. 프로젝트를 클론합니다.
 ```
-git clone https://github.com/hyejineee/pre-onboarding-8th-3.git
+git clone https://github.com/hyejineee/recommended-search.git
 ```
 2. 클론한 프로젝트 내부로 이동합니다. 
 ```
-cd pre-onboarding-8th-3
+cd recommended-search
 ```
 3. 의존 패키지를 설치합니다. 
 ```
