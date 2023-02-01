@@ -1,6 +1,8 @@
 # 검색어 추천 기능이 있는 검색창
 원티드 프리온보딩 인턴십에서 3주차 과제로 API 호출 최적화와 키보드 조작이 가능한 검색창을 구현했습니다.
 
+**배포 사이트에 접속하기 전에 반드시 [API 서버](https://github.com/walking-sunset/assignment-api_8th)를 실행해 주세요**  
+[🔗 배포 링크](https://recommended-search.vercel.app/)
 ## 목차
 - [요구 사항](#1)
 - [구현 내용](#2)
